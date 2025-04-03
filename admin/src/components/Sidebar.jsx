@@ -16,7 +16,6 @@ export default function Sidebar({ isOpen, setIsOpen }) {
   ];
 
   const settingsItems = [
-    { icon: User, label: "Profile", path: "/settings/profile" },
     { icon: Settings, label: "Company", path: "/settings/company" },
     { icon: Bell, label: "Notifications", path: "/settings/notifications" },
     { icon: LifeBuoy, label: "Support", path: "/support" },
@@ -91,23 +90,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             </div>
           </nav>
 
-          {/* Sidebar footer */}
-          <div className="border-t p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded-full bg-gray-200">
-                  <User className="h-8 w-8 p-1.5 text-gray-600" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium">John Doe</p>
-                  <p className="text-xs text-gray-500">HR Manager</p>
-                </div>
-              </div>
-              <button className="text-gray-500 hover:text-gray-700">
-                <LogOut className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
+       
         </div>
       </div>
     </>

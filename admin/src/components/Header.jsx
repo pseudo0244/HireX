@@ -39,37 +39,7 @@ export default function Header({ setSidebarOpen }) {
           <span>Add Job</span>
         </Link>
 
-        <div className="relative">
-          <div className="group">
-            <button className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300">
-              <User className="h-5 w-5 text-gray-600" />
-            </button>
-            <div className="absolute right-0 top-full mt-1 hidden w-48 rounded-md border border-gray-200 bg-white py-1 shadow-lg group-hover:block">
-              <Link
-                to="/settings/profile"
-                className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                <User className="h-4 w-4" />
-                <span>Profile</span>
-              </Link>
-              <Link
-                to="/settings/company"
-                className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                <Settings className="h-4 w-4" />
-                <span>Settings</span>
-              </Link>
-              <div className="my-1 border-t border-gray-100"></div>
-              <Link
-                to="/"
-                className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                <LogOut className="h-4 w-4" />
-                <span>Sign out</span>
-              </Link>
-            </div>
-          </div>
-        </div>
+       
       </div>
     </header>
   );
