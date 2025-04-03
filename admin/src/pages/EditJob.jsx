@@ -1,12 +1,13 @@
 "use client"
 import React from "react"
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { Link, useParams } from "react-router-dom"
 import { ArrowLeft } from "lucide-react"
 import Sidebar from "../components/Sidebar"
 import Header from "../components/Header"
 
-export default function AddJob() {
+export default function EditJob() {
+  const { id } = useParams()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [formData, setFormData] = useState({
     title: "",
@@ -18,6 +19,23 @@ export default function AddJob() {
     requirements: "",
   })
 
+  // Simulate fetching job data
+  useEffect(() => {
+    // This would be an API call in a real application
+    const jobData = {
+      title: "Senior Frontend Developer",
+      company: "TechCorp Inc.",
+      location: "Remote",
+      type: "Full-time",
+      salary: "$90,000 - $120,000",
+      description: "We are looking for an experienced Frontend Developer to join our team...",
+      requirements:
+        "- 5+ years of experience with React\n- Strong TypeScript skills\n- Experience with state management",
+    }
+
+    setFormData(jobData)
+  }, [id])
+
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
@@ -25,7 +43,8 @@ export default function AddJob() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("Job Added:", formData)
+    console.log("Job Updated:", formData)
+    // This would save the updated job data
   }
 
   return (
@@ -50,7 +69,7 @@ export default function AddJob() {
             </div>
 
             <div className="rounded-xl border bg-white p-6 shadow-sm md:p-8">
-              <h1 className="mb-6 text-2xl font-bold text-gray-900">Add New Job</h1>
+              <h1 className="mb-6 text-2xl font-bold text-gray-900">Edit Job</h1>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-4">
@@ -62,7 +81,6 @@ export default function AddJob() {
                       type="text"
                       id="title"
                       name="title"
-                      placeholder="e.g. Senior Frontend Developer"
                       value={formData.title}
                       onChange={handleChange}
                       className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -79,7 +97,6 @@ export default function AddJob() {
                         type="text"
                         id="company"
                         name="company"
-                        placeholder="Your company name"
                         value={formData.company}
                         onChange={handleChange}
                         className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -94,7 +111,6 @@ export default function AddJob() {
                         type="text"
                         id="location"
                         name="location"
-                        placeholder="e.g. Remote, New York, etc."
                         value={formData.location}
                         onChange={handleChange}
                         className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -132,7 +148,6 @@ export default function AddJob() {
                         type="text"
                         id="salary"
                         name="salary"
-                        placeholder="e.g. $80,000 - $100,000"
                         value={formData.salary}
                         onChange={handleChange}
                         className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -147,7 +162,6 @@ export default function AddJob() {
                     <textarea
                       id="description"
                       name="description"
-                      placeholder="Describe the job role, responsibilities, and requirements"
                       value={formData.description}
                       onChange={handleChange}
                       rows={6}
@@ -163,7 +177,6 @@ export default function AddJob() {
                     <textarea
                       id="requirements"
                       name="requirements"
-                      placeholder="List the key requirements for this position"
                       value={formData.requirements}
                       onChange={handleChange}
                       rows={4}
@@ -184,7 +197,7 @@ export default function AddJob() {
                     type="submit"
                     className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                   >
-                    Publish Job
+                    Update Job
                   </button>
                 </div>
               </form>
