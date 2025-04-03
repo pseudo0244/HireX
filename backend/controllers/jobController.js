@@ -9,7 +9,7 @@ export const getJobs = async (req, res) => {
     console.error('Error fetching jobs:', error);
     res.status(500).json({ error: 'Failed to fetch jobs' });
   }
-};
+};  //try
 
 // Add a new job
 export const addJob = async (req, res) => {
