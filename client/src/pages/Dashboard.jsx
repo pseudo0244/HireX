@@ -7,25 +7,20 @@ import Header from "../components/Header";
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [jobs, setJobs] = useState([]);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"; // Use environment variable
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-  // 📌 Fetch Jobs from MongoDB Atlas (Updated Every 5 Seconds)
   useEffect(() => {
     const fetchJobs = () => {
       axios
         .get(`${API_URL}/api/jobs`)
-        .then((response) => {
-          setJobs(response.data);
-        })
-        .catch((error) => {
-          console.error("❌ Error fetching jobs:", error);
-        });
+        .then((response) => setJobs(response.data))
+        .catch((error) => console.error("❌ Error fetching jobs:", error));
     };
 
-    fetchJobs(); // Fetch initially
-    const interval = setInterval(fetchJobs, 5000); // Auto-refresh every 5 seconds
+    fetchJobs();
+    const interval = setInterval(fetchJobs, 5000);
 
-    return () => clearInterval(interval); // Cleanup on unmount
+    return () => clearInterval(interval);
   }, [API_URL]);
 
   return (

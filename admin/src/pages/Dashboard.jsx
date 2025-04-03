@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Trash2 } from "lucide-react";
+import { Trash2, MapPin, Briefcase } from "lucide-react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 
@@ -15,7 +15,6 @@ function Dashboard() {
       try {
         setLoading(true);
         const response = await axios.get('/api/jobs');
-        // Ensure jobs is always an array
         setJobs(Array.isArray(response.data) ? response.data : []);
         setError(null);
       } catch (error) {
@@ -47,48 +46,40 @@ function Dashboard() {
       <div className="flex flex-1 flex-col overflow-hidden">
         <Header setSidebarOpen={setSidebarOpen} />
         <main className="flex-1 overflow-auto p-4 sm:p-6">
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto max-w-6xl">
             <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
-            <div className="bg-white rounded-xl border p-6 shadow-sm">
-              <h2 className="text-xl font-semibold mb-4">Job Listings</h2>
-              {loading ? (
-                <div className="text-gray-500">Loading jobs...</div>
-              ) : error ? (
-                <div className="p-4 text-red-700 bg-red-100 rounded-md">{error}</div>
-              ) : jobs.length === 0 ? (
-                <p className="text-gray-500">No jobs available.</p>
-              ) : (
-                <table className="w-full border-collapse border border-gray-200">
-                  <thead>
-                    <tr className="bg-gray-100">
-                      <th className="border px-4 py-2">Title</th>
-                      <th className="border px-4 py-2">Company</th>
-                      <th className="border px-4 py-2">Location</th>
-                      <th className="border px-4 py-2">Salary</th>
-                      <th className="border px-4 py-2">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {jobs.map((job) => (
-                      <tr key={job._id} className="border">
-                        <td className="border px-4 py-2">{job.title}</td>
-                        <td className="border px-4 py-2">{job.company}</td>
-                        <td className="border px-4 py-2">{job.location}</td>
-                        <td className="border px-4 py-2">{job.salary}</td>
-                        <td className="border px-4 py-2">
-                          <button
-                            onClick={() => deleteJob(job._id)}
-                            className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
-                          >
-                            <Trash2 className="h-4 w-4 inline-block mr-1" /> Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
-            </div>
+            
+            {loading ? (
+              <div className="text-gray-500">Loading jobs...</div>
+            ) : error ? (
+              <div className="p-4 text-red-700 bg-red-100 rounded-md">{error}</div>
+            ) : jobs.length === 0 ? (
+              <p className="text-gray-500">No jobs available.</p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {jobs.map((job) => (
+                  <div key={job._id} className="bg-white rounded-xl shadow-md p-5 border flex flex-col justify-between">
+                    <div>
+                      <h2 className="text-xl font-semibold text-gray-800">{job.title}</h2>
+                      <p className="text-gray-600 flex items-center mt-2">
+                        <Briefcase className="h-4 w-4 mr-2 text-blue-500" /> {job.company}
+                      </p>
+                      <p className="text-gray-600 flex items-center mt-1">
+                        <MapPin className="h-4 w-4 mr-2 text-green-500" /> {job.location}
+                      </p>
+                      <p className="mt-3 text-gray-500 text-sm">{job.description.slice(0, 100)}...</p>
+                      <p className="mt-2 font-semibold text-blue-600">Salary: {job.salary || "Not specified"}</p>
+                    </div>
+                    <button
+                      onClick={() => deleteJob(job._id)}
+                      className="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 flex items-center justify-center"
+                    >
+                      <Trash2 className="h-5 w-5 mr-2" /> Delete Job
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </main>
       </div>
