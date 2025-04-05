@@ -6,7 +6,7 @@ from question_generator import generate_interview_questions
 # Streamlit UI
 st.set_page_config(page_title="AI Interview Question Generator", layout="wide")
 
-st.title("🧠 AI-Powered Interview Question Generator")
+st.title("🧠 AI-Powered Interview Preparation")
 st.write("Upload a candidate's resume and specify the job role to generate relevant interview questions.")
 
 # File upload
